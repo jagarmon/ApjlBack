@@ -1,10 +1,8 @@
 package com.apjl.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -34,7 +32,7 @@ public class Works {
 	private Boolean paid;
 	
 	@ManyToOne
-	@JoinColumn(name="customer_id")
+	@JoinColumn
 	private Customers customer;
 
 	public Integer getId() {
@@ -91,6 +89,14 @@ public class Works {
 
 	public void setPaid(Boolean paid) {
 		this.paid = paid;
+	}
+	
+	public Customers getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customers customer) {
+		this.customer = customer;
 	}
 	
 	
