@@ -20,6 +20,8 @@ import com.apjl.model.Customers;
 import com.apjl.payload.FileResponse;
 import com.apjl.services.FileService;
 
+import jakarta.annotation.PostConstruct;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/file")
@@ -31,8 +33,14 @@ public class FileRest {
 	@Autowired
 	private CustomersDAO customerDAO;
 	
-	@Value("C:/angularProjects/apjlApp/src/assets/images")
+	@Value("${environments.imagePath}")	
 	private String path;
+	
+	@Value("${environments.fileResponse.success}")	
+	private String successMessage;
+	
+	@Value("${environments.fileResponse.fail}")	
+	private String failMessage;
 	
 	@PostMapping("/upload")
 	public ResponseEntity<FileResponse> fileUpload(@RequestParam("image") MultipartFile image){
@@ -41,13 +49,14 @@ public class FileRest {
 			fileName = this.fileService.uploadImage(path, image);
 		} catch (IOException e) {
 			
-			return new ResponseEntity<>(new FileResponse(fileName, "La imagen no pudo subirse"),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new FileResponse(fileName, failMessage),HttpStatus.INTERNAL_SERVER_ERROR);
 		} 
-		return new ResponseEntity<>(new FileResponse(fileName, "Imagen subida correctamente"),HttpStatus.OK);
+		return new ResponseEntity<>(new FileResponse(fileName, successMessage),HttpStatus.OK);
 		
 	}
 	@GetMapping("/prueba")
 	public List<Customers> listCustomers(){
 		return customerDAO.findAll();
 	}
+	
 }
