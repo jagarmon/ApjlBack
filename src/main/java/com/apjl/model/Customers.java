@@ -13,6 +13,9 @@ public class Customers {
 	private Integer id;
 	
 	@Column
+	private String dni;
+	
+	@Column
 	private String lastName;
 	
 	@Column
@@ -33,6 +36,14 @@ public class Customers {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public String getLastName() {

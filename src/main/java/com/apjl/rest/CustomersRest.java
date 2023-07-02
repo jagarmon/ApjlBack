@@ -46,6 +46,7 @@ public class CustomersRest {
 		
 		Customers cust = customerDAO.findById(id).get();
 		
+		cust.setDni(customer.getDni());
 		cust.setFirstName(customer.getFirstName());
 		cust.setLastName(customer.getLastName());
 		cust.setAddress(customer.getAddress());
