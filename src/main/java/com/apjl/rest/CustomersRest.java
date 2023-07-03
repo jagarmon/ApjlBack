@@ -5,6 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apjl.dao.CustomersDAO;
 import com.apjl.model.Customers;
+import com.apjl.payload.CustomerResponse;
+import com.apjl.payload.FileResponse;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -25,6 +31,12 @@ public class CustomersRest {
 
 	@Autowired
 	private CustomersDAO customerDAO;
+	
+	@Value("${environments.deleteResponse.success}")	
+	private String successMessage;
+	
+	@Value("${environments.deleteResponse.fail}")	
+	private String failMessage;
 	
 	@PostMapping("/nuevo")
 	public void saveCustomer(@RequestBody Customers customer) {
@@ -37,8 +49,14 @@ public class CustomersRest {
 	}
 	
 	@DeleteMapping("/eliminar/{id}")
-	public void deleteCustomer(@PathVariable("id") Integer id) {
+	public ResponseEntity<CustomerResponse> deleteCustomer(@PathVariable("id") Integer id) {
+		Customers customer = customerDAO.findById(id).get();
+		try {
 		customerDAO.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+			return new ResponseEntity<>(new CustomerResponse(customer.getFirstName()+ " " + customer.getLastName(), failMessage),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(new CustomerResponse(customer.getFirstName()+ " " + customer.getLastName(), successMessage),HttpStatus.OK);
 	}
 	
 	@PutMapping("/actualizar/{id}")
