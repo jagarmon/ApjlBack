@@ -33,13 +33,13 @@ public class FileRest {
 	@Autowired
 	private CustomersDAO customerDAO;
 	
-	@Value("${environments.imagePath}")	
+	@Value("C://ApjlProject//apjlApp//src//assets//images")	
 	private String path;
 	
-	@Value("${environments.fileResponse.success}")	
+	@Value("Imagen subida correctamente")	
 	private String successMessage;
 	
-	@Value("${environments.fileResponse.fail}")	
+	@Value("La imagen no se pudo subir")	
 	private String failMessage;
 	
 	@PostMapping("/upload")

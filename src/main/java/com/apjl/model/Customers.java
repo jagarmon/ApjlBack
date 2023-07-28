@@ -22,10 +22,16 @@ public class Customers {
 	private String firstName;
 	
 	@Column
+	private String bankAccount;
+	
+	@Column
 	private String address;
 	
 	@Column
 	private String city;
+
+	@Column
+	private String postalCode;
 	
 	@Column
 	private String image;
@@ -61,6 +67,14 @@ public class Customers {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+	
+	public String getBankAccount() {
+		return bankAccount;
+	}
+	
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
 
 	public String getAddress() {
 		return address;
@@ -76,6 +90,14 @@ public class Customers {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+	
+	public String getPostalCode() {
+		return postalCode;
+	}
+	
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public String getImage() {

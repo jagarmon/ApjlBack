@@ -32,10 +32,10 @@ public class CustomersRest {
 	@Autowired
 	private CustomersDAO customerDAO;
 	
-	@Value("${environments.deleteResponse.success}")	
+	@Value("Entidad eliminada correctamente")	
 	private String successMessage;
 	
-	@Value("${environments.deleteResponse.fail}")	
+	@Value("El cliente tiene trabajos asignados, elimine los trabajos asignados e inténtelo de nuevo")	
 	private String failMessage;
 	
 	@PostMapping("/nuevo")
@@ -67,8 +67,10 @@ public class CustomersRest {
 		cust.setDni(customer.getDni());
 		cust.setFirstName(customer.getFirstName());
 		cust.setLastName(customer.getLastName());
+		cust.setBankAccount(customer.getBankAccount());
 		cust.setAddress(customer.getAddress());
 		cust.setCity(customer.getCity());
+		cust.setPostalCode(customer.getPostalCode());
 		cust.setImage(customer.getImage());
 		
 		customerDAO.save(cust);
