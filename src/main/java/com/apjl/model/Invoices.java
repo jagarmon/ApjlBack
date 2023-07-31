@@ -3,12 +3,14 @@ package com.apjl.model;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+@Entity
 public class Invoices {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +19,19 @@ public class Invoices {
 	@Column
 	private UUID invoiceID;
 	
+	private String date;
+	
 	@Column
 	private String invoiceState;
 	
-	@Column
+	@Column(length = 100000)
 	private String concept;
+	
+	@Column
+	private String prices;
+	
+	@Column 
+	private Double totalPrice;
 
 	@ManyToOne
 	@JoinColumn
@@ -47,6 +57,14 @@ public class Invoices {
 		return invoiceState;
 	}
 
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	public void setInvoiceState(String invoiceState) {
 		this.invoiceState = invoiceState;
 	}
@@ -58,6 +76,23 @@ public class Invoices {
 	public void setConcept(String concept) {
 		this.concept = concept;
 	}
+	
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	public String getPrices() {
+		return prices;
+	}
+
+	public void setPrices(String prices) {
+		this.prices = prices;
+	}
+
 
 	public Works getWork() {
 		return work;

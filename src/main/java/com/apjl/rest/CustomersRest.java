@@ -1,8 +1,6 @@
 package com.apjl.rest;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apjl.dao.CustomersDAO;
 import com.apjl.model.Customers;
 import com.apjl.payload.CustomerResponse;
-import com.apjl.payload.FileResponse;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
