@@ -27,9 +27,11 @@ public class InvoicesRest {
 	private InvoicesDAO invoicesDAO;
 	
 	@PostMapping("/nuevo")
-	public void saveInvoice(@RequestBody Invoices invoice) {
-		invoice.setInvoiceID(UUID.randomUUID());
+	public UUID saveInvoice(@RequestBody Invoices invoice) {
+		UUID invoiceID = UUID.randomUUID();
+		invoice.setInvoiceID(invoiceID);
 		invoicesDAO.save(invoice);
+		return invoiceID;
 	}
 	
 	@GetMapping("/listar")
